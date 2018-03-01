@@ -16,6 +16,7 @@ import os
 path = '/home/data/research/IIP/ML/colab/luciano/rawdata/SIMGEN_PUBLIC_DES'
 files = [f for f in os.listdir(path) if f.endswith('.DAT')]
 
+frames = []
 for file in files:
     with open(path + '/' + file, 'r') as infile:
         line = infile.readlines()
@@ -58,6 +59,10 @@ for file in files:
     fulldata = np.concatenate((data_array,type_array), axis=1)
     
     df_data = pd.DataFrame(fulldata, columns = features)
+    frames.append(df_data)
 
+df_fulldata = pd.concat(frames)
+print (   df_fulldata.describe(include='all')  )
 print( '# of files in the folder: ', len(files))
+      
 print ('job duration in s: ', datetime.now() - start)
